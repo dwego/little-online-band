@@ -4,13 +4,13 @@ const conectarBancoDados = require("./src/database/connect");
 dotenv.config();
 
 async function main() {
-  console.log("Conectando ao banco de dados...");
+  console.log("Connecting to the database...");
   try {
     await conectarBancoDados();
-    console.log("Conectado ao banco de dados!");
+    console.log("Connected to the database...");
     require("./src/modules/express");
   } catch (err) {
-    console.error("Erro ao conectar ao banco de dados: ", err);
+    console.error("Error connecting to the database: ", err);
   }
 }
 
