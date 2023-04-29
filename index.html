@@ -18,8 +18,10 @@
     <div id="container">
       <h1>Welcome to our site's hub!!</h1>
       <button onclick="generateRoom()">Click to generate your room</button>
+      <label for="password">Enter a password: (optional)</label>
+      <input type="text" id="passwordVerify" name="passwordVerify" />
       <form>
-        <label for="password">Enter a code to join:</label>
+        <label for="text">Enter a code to join:</label>
         <input type="text" id="codeVerify" name="codeVerify" required />
         <button type="submit" onclick="verifyCode(event)">Enter</button>
       </form>
