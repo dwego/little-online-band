@@ -11,7 +11,7 @@ function generateCode() {
 let codeGenerator = true;
 
 function generateRoom() {
-  let password = "1234";
+  let password = document.getElementById("passwordVerify").value;
   let code = generateCode();
 
   if (password == "") {
