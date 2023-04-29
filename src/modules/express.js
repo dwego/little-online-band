@@ -1,15 +1,20 @@
 const express = require("express");
-const ejs = require("ejs");
 const path = require("path");
 const RoomModel = require("../models/roomPassword.model");
-const { appendFileSync } = require("fs");
 
 const app = express();
 const port = 8080;
-
 let passwordVerify = false;
 
+app.use(express.static(path.join(__dirname, "/../../")));
+app.use(express.static(path.join(__dirname, "../public/")));
+app.use("/piano", express.static(path.join(__dirname, "../public/piano")));
 app.use(express.json());
+
+console.log(typeof RoomModel);
+app.get("/", async (req, res) => {
+  res.sendFile(path.join(__dirname, "../../index.html"));
+});
 
 app.post("/api/code", async (req, res) => {
   try {
@@ -18,7 +23,7 @@ app.post("/api/code", async (req, res) => {
 
     const room = await RoomModel.create(req.body);
     console.log(`Code: ${code}`);
-    res.status(200).json({ message: "Code received successfully." });
+    res.status(200).send("");
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);
@@ -29,11 +34,11 @@ app.get("/rooms/:code", async (req, res) => {
   try {
     const room = await RoomModel.findOne({ code: req.params.code });
     if (!room) {
-      return res.status(404).send("Sala não encontrada.");
+      return res.status(404).send("Room not found");
     }
     if (!room.password || passwordVerify == true) {
       passwordVerify = false;
-      return res.sendFile(path.join(__dirname, "../public/sala.html"));
+      return res.sendFile(path.join(__dirname, "../public/piano/piano.html"));
     }
     res.sendFile(path.join(__dirname, "../public/password.html"));
   } catch (err) {
@@ -49,17 +54,34 @@ app.post("/rooms/:codePass/password", async (req, res) => {
     const room = await RoomModel.findOne({ code: codePass });
     if (!room) {
       passwordVerify = false;
-      return res.status(404).send("Sala não encontrada.");
+      res.status(404).send("Room not found.");
+      return res.redirect(`/`);
     }
     if (room.password !== passwordPass) {
       passwordVerify = false;
-      return res.status(401).send("Senha incorreta.");
+      return res.status(401).send("Incorrect password.");
     }
     passwordVerify = true;
     res.redirect(`/rooms/${codePass}`);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Ocorreu um erro interno no servidor.");
+    res.status(500).send("An internal server error has occurred.");
+  }
+});
+
+app.post("/api/rooms/verify", async (req, res) => {
+  try {
+    const enterCode = req.body.enterCode;
+
+    const room = await RoomModel.findOne({ code: enterCode });
+
+    if (!room) {
+      res.status(404).send("Invalid code");
+    } else {
+      res.redirect(`/rooms/${enterCode}`);
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 });
 
