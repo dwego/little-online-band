@@ -8,15 +8,20 @@ function generateCode() {
   return code;
 }
 
-const code = generateCode();
-const url = "http://localhost:8080/api/code";
+let password = "";
+let code = generateCode();
 
-fetch(url, {
+if (password == "") {
+  password == null;
+}
+
+console.log(JSON.stringify({ code: code, password: password }));
+fetch("http://localhost:8080/api/code", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
   },
-  body: JSON.stringify({ code: code }),
+  body: JSON.stringify({ code: code, password: password }),
 })
   .then((response) => {
     if (!response.ok) {
@@ -25,3 +30,5 @@ fetch(url, {
     console.log("Code sent successfully.");
   })
   .catch((error) => console.error(error));
+
+module.exports = generateCode;
