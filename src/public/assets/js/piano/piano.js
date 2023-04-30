@@ -10,6 +10,8 @@ const pressPlayKey = (key) => {
   audio.src = `tunes/${key}.wav`;
   audio.play();
 
+  
+
   const clickedKey = document.querySelector(`[data-key=${key}]`);
   clickedKey.classList.add("active");
   setTimeout(() => {

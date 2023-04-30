@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta ico />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Band online</title>
+    <script src="./src/modules/codeGenerator.js"></script>
+    <script src="./src/modules/verifyCode.js"></script>
+    <link
+      rel="icon"
+      href="./src/images/piano-keys-svgrepo-com.svg"
+      type="image/svg+xml"
+    />
+  </head>
+  <body>
+    <div id="container">
+      <h1>Welcome to our site's hub!!</h1>
+      <button onclick="generateRoom()">Click to generate your room</button>
+      <label for="password">Enter a password: (optional)</label>
+      <input type="text" id="passwordVerify" name="passwordVerify" />
+      <form>
+        <label for="text">Enter a code to join:</label>
+        <input type="text" id="codeVerify" name="codeVerify" required />
+        <button type="submit" onclick="verifyCode(event)">Enter</button>
+      </form>
+      <p id="codeResponse"></p>
+    </div>
+  </body>
+</html>

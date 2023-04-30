@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="piano.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Band online</title>
+    <link rel="stylesheet" href="../../src/public/assets/css/piano/piano.css" />
     <title>Play PIANO with your friends</title>
   </head>
   <body>
@@ -39,6 +40,14 @@
         <li class="key white" data-key="ç"><span>ç</span></li>
       </ul>
     </div>
-    <script src="piano.js"></script>
+    <p id="members">Members in the room:</p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js"></script>
+    <script src="../../src/public/assets/js/piano/piano.js"></script>
+    <script>
+      const socket = io();
+      document.addEventListener("keydown", (event) => {
+        socket.emit("key pressed", event.key);
+      });
+    </script>
   </body>
 </html>
