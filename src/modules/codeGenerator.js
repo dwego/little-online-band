@@ -36,8 +36,8 @@ function generateRoom() {
       .catch((error) => console.error(error));
 
     const link = document.createElement("a");
-    link.href = `http://localhost:8080/rooms/${code}`;
-    link.textContent = `localhost:8080/rooms/${code}`;
+    link.href = `http://localhost:8080/${code}`;
+    link.textContent = `localhost:8080/${code}`;
 
     const container = document.getElementById("container");
     container.appendChild(link);

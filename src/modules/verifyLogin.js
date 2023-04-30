@@ -1,23 +1,25 @@
 function verifyCode(event) {
   event.preventDefault();
 
-  const enterCode = document.getElementById("codeVerify").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  fetch(`/api/rooms/verify`, {
+  fetch(`/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      enterCode: enterCode,
+      email: email,
+      password: password,
     }),
   })
     .then((response) => {
       if (response.ok) {
         window.location.href = `/${enterCode}`;
       } else {
-        const codeResponse = document.getElementById("codeResponse");
-        codeResponse.textContent = "Invalid code.";
+        const response = document.getElementById("response");
+        response.textContent = "Invalid email or password";
       }
     })
     .catch((error) => alert(error.message));
