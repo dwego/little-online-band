@@ -8,7 +8,7 @@ async function main() {
   try {
     await conectarBancoDados();
     console.log("Connected to the database...");
-    require("./src/modules/express");
+    require("./src/app");
   } catch (err) {
     console.error("Error connecting to the database: ", err);
   }
