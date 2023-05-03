@@ -3,11 +3,12 @@ const pianoKeys = document.querySelectorAll(".piano-keys .key"),
   keysCheckbox = document.querySelector(".keys-checkbox input");
 
 let possibleKeys = [],
-  audio = new Audio("tunes/a.wav");
+audioVolume = 0.5;
 
 // Plays (and presses) the audio from the pressed/clicked key
 const pressPlayKey = (key) => {
-  audio.src = `tunes/${key}.wav`;
+  const audio = new Audio(`./assets/tunes/${key}.wav`);
+  audio.volume = audioVolume;
   audio.play();
 
   
@@ -32,7 +33,7 @@ const showHideKeys = (e) => {
 
 // Sets the volume equal to the volume slider value
 const handleVolume = (e) => {
-  audio.volume = e.target.value;
+  audioVolume = e.target.value;
 };
 
 // Playing piano through keyboard keys, allowing only the possible keys
